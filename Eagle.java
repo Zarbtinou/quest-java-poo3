@@ -25,29 +25,45 @@ public class Eagle extends Bird implements Fly {
     //TakeOff
 
     @Override
-    public void takeOff() {
-        System.out.printf("   "+this.getName() +" gonna fly in the sky !   ");
-    }
 
+    public void takeOff() {
+        if (!this.flying && this.altitude == 0) {
+            this.flying = true;
+            System.out.printf("%s take off in the sky.%n", this.getName());
+        }
+    }
 
    //Ascend
     @Override
+
     public int ascend(int meters) {
-        System.out.printf("   "+this.getName() +" go more highter in the sky !   "+ this.getAltitude());
+        if (this.flying) {
+            this.altitude = Math.max(this.altitude + meters, 0);
+            System.out.printf("%s fly upward, altitude : %d%n", this.getName(), this.altitude);
+        }
         return this.altitude;
     }
 
     //Descend
     @Override
+
     public int descend(int meters) {
-        System.out.printf("   "+this.getName() +" go more downer in the sky !   "+ this.getAltitude());
+        if (this.flying) {
+            this.altitude = Math.min(this.altitude - meters, 325);
+            System.out.printf("%s fly downward, altitude : %d%n", this.getName(), this.altitude);
+        }
         return this.altitude;
     }
 
     //Land
     @Override
+
     public void land() {
-        System.out.printf("   "+this.getName() + " gonna land ! Be carreful !   ");
+        if (this.flying && this.altitude == 0) {
+            System.out.printf("%s is land on earth.%n", this.getName());
+        } else {
+            System.out.printf("%s is too high, it can't land.%n", this.getName());
+        }
     }
 
     //Glide
